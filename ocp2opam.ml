@@ -147,6 +147,7 @@ let _ =
   in
   parse_statements None stmts;
   let pwd = Sys.getcwd () in
+  Printf.printf "DEBUG : %s\n" (List.hd !dirname);
   
   List.iter (fun p ->
       if not !keep_version then
@@ -164,7 +165,7 @@ let _ =
                          
       and md5sum = ref "" in
 
-      Sys.chdir pwd; Sys.chdir (List.hd !dirname);
+      Sys.chdir pwd; (* Sys.chdir (List.hd !dirname); *)
       let project_dir = (Sys.getcwd ()) in
       ignore (Unix.system "ocp-build clean");
       let package_dir = to_path [!target;"packages";p.package_name;p.package_name ^ "." ^ !version]  
@@ -172,12 +173,12 @@ let _ =
       let package_path = archive_dir ^ Filename.dir_sep ^ p.package_name ^ "-" ^ !version ^ ".tar.gz" in
       run ("mkdir -p " ^ package_dir);
       run ("mkdir -p " ^ archive_dir);
-      Sys.chdir Filename.parent_dir_name;
+      (* Sys.chdir Filename.parent_dir_name; *)
       let command = "tar --exclude=_obuild --exclude='ocp-build.root*' --exclude=.git --exclude='" ^ 
                     p.package_name ^"*"^".tar.gz' " ^ 
-                    " -czf " ^ package_path ^ " " ^ (Filename.basename project_dir)  in
+                    " -czf " ^ package_path ^ " ." (* ^ (Filename.basename project_dir) *)  in
       run command;
-      Sys.chdir (Filename.basename project_dir);
+      (* Sys.chdir (Filename.basename project_dir); *)
 
       md5sum := 
         if  (read_process "uname -s") = "Darwin\n" then
