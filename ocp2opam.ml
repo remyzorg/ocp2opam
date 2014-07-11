@@ -39,7 +39,7 @@ let main () =
   and url_arg  = ("-url", Arg.String (fun s -> url := s), 
                   "url of repository (default \"\")") 
 
-  and version_arg  = ("-version", Arg.String (fun s -> url := s), 
+  and version_arg  = ("-version", Arg.String (fun s -> version := s), 
                   "version (default date yyyymmdd)") 
 
   and keep_version_arg  = ("-keep", Arg.Bool (fun b -> keep_version := b), 
