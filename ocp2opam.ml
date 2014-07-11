@@ -173,8 +173,8 @@ let _ =
       run ("mkdir -p " ^ package_dir);
       run ("mkdir -p " ^ archive_dir);
       Sys.chdir Filename.parent_dir_name;
-      let command = "tar --exclude=_obuild --exclude=ocp-build.root* --exclude=.git --exclude=" ^ 
-                    p.package_name ^"*"^".tar.gz " ^ 
+      let command = "tar --exclude=_obuild --exclude='ocp-build.root*' --exclude=.git --exclude='" ^ 
+                    p.package_name ^"*"^".tar.gz' " ^ 
                     " -czf " ^ package_path ^ " " ^ (Filename.basename project_dir)  in
       run command;
       Sys.chdir (Filename.basename project_dir);
